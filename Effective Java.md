@@ -29,5 +29,14 @@
 * 除非是作为安全网，或者是为了终止非关键的本地资源，不要使用清除方法
 ### 9.try-with-resources优先于try-finally
 
+## 二.对所有对象都通用的方法
 
-
+### 10.覆盖equals时请遵守通用约定
+ * 自反性，对称性，传递性，一致性，非空性
+ * 不要将equals声明中的Object对象替换为其他的类型
+### 11.覆盖equals时总要覆盖hashcode
+* 原因： 会违反hashcode的通用约定，导致该类无法结合所有基于散列的集合一起正常运作；HashSet，HashMap；
+* 相等的对象必须具有相等的散列码（hashcode）
+### 12.始终要覆盖toString方法
+### 13.谨慎的覆盖clone
+### 14.考虑实现Comparable接口
