@@ -1,0 +1,13 @@
+3.更好的方式
+
+keys * 命令在数据量很大的情况下，直接在redis cli中执行会严重影响服务器性能，更好的方式是在lua脚本中执行
+
+eval方式执行redis lua
+
+lua方式通配符查找
+
+redis-cli eval "return redis.call('keys','site_msg_888*')” 0
+
+lua方式通配符删除
+
+eval "return redis.call('del',unpack(redis.call('keys',ARGV[1])))" 0 ‘site_msg_888*’
