@@ -1,0 +1,36 @@
+如何使用：
+    1. 编辑config.json文件，配置共享存储
+    2. 执行main.py文件:
+        python main.py configs/config.json
+
+
+config.json文件格式如下：
+    {
+        "create": {  // 定义创建iscsi共享存储的信息
+            "server": {  // 要创建iscsi共享存储的服务器信息
+                "ip": "172.25.18.176", "port": 22,
+                "user": "root", "passwd": "cloudos",
+                "basedir": "/var/lib/iscsi_disks"  // 共享存储的保存目录
+            },
+            "clients": [  // 要连接共享存储的iscsi客户端信息
+                {
+                    "ip": "172.25.18.176", "port": 22,
+                    "user": "root", "passwd": "cloudos"
+                }
+            ],
+            "targets": [  // 共享存储信息，名称，大小以及允许哪些客户端进行连接
+                {
+                    "name": "redis", "size": "100G",
+                    "allowed": ["172.25.18.176", "172.25.18.177", "172.25.18.178"]
+                }
+            ]
+        },
+        "mount": [  // 挂载共享存储时的配置信息
+            {
+                "ip": "172.25.18.176", "port": 22,
+                "user": "root", "passwd": "cloudos",
+                "target": "172.25.18.176",  // 共享存储所在服务器ip地址
+                "mkfs": true  // 表示是否对挂载的共享存储进行格式化
+            }
+        ]
+    }
