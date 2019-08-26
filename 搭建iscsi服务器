@@ -1,0 +1,48 @@
+搭建iscsi：
+
+            1、首先准备好iSCSI的存储设备
+
+            2、安装，targetd    targetcli
+
+                    （yum -y install  targetd  targetcli）
+
+            3、systemctl start target （启动服务）
+
+            4、firewall-cmd --permanent --add-port=3260/tcp（因为iSCSI使用的是3260端口所以要设置防火墙）
+
+            5、targetcli（执行targetcli工具，可以输入help查看帮助）      
+
+     基本思路就是，把准备共享的块做出来，创建一个target，在target上创建lun，一个lun连接一个块。
+
+            6、/backstores/block  create  server0.disk1（这个块的名字）  共享的快（例：/dev/sdb）
+
+            7、/iscsi create  （创建iqn名字，即创建iSCSI对象） （例：/iscsi create   iqn.2018-05.com：disk1）
+
+            8、设置acl即将iscsi对象与客户端ip绑定。
+
+                 （/iscsi/iqn。2018-05.com：disk1/tpg1/acls   create iqn.2018-05.com：client1）
+
+                    注意，iqn.2018-05.com：client1 是initiator的名字，需要在客户端设置。
+
+            9、创建lun并绑定块
+
+                    （/iSCSI/iqn.2018-05.com：disk1/typ1/luns create /backstores/block/server0.disk2）
+
+                     一个iSCSI对象可以创建多个LUN
+
+                     执行  IS  查看
+            10、启动监听程序
+
+                        （/iscsi/iqn.2018-05.com：disk1/typ1/portals  create  iscsi服务端网卡ip）
+
+            11、安装iSCSI-initiator-utils （在客户端    yum -y install  iSCSI-initiator-utils）
+
+            12、vim /etc/iscsi/inittatorname.iscsi （给initiator起个名字，看第八条）
+
+            13、启动服务   （systenctl  start  iscsi）
+
+            14、发现存储    （iscsiadm -m discovery -t st -p  服务端IP地址）
+
+            15、登陆存储     ( iSCSiadm -m node -T 发现储存的名字 -p 服务端的IP地址 -l )
+
+                       -l 表示连接iSCSI目标，-u表示断开和iSCSI目标的连接
