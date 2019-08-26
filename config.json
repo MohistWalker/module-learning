@@ -1,0 +1,78 @@
+{
+    "create": {
+        "server": {
+            "ip": "10.125.30.109", "port": 22,
+            "user": "root", "passwd": "cloudos",
+            "basedir": "/var/lib/iscsi_disks"
+        },
+        "clients": [
+            {
+                "ip": "10.125.30.106", "port": 22,
+                "user": "root", "passwd": "cloudos"
+            },
+            {
+                "ip": "10.125.30.108", "port": 22,
+                "user": "root", "passwd": "cloudos"
+            },
+			{
+                "ip": "10.125.30.109", "port": 22,
+                "user": "root", "passwd": "cloudos"
+            }
+
+        ],
+        "targets": [
+			{
+                "name": "data1", "size": "20G",
+                "allowed": ["10.125.30.106", "10.125.30.108","10.125.30.109"]
+            },
+			{
+                "name": "data2", "size": "20G",
+                "allowed": ["10.125.30.106", "10.125.30.108","10.125.30.109"]
+            },
+			{
+                "name": "data3", "size": "20G",
+                "allowed": ["10.125.30.106", "10.125.30.108","10.125.30.109"]
+            },{
+                "name": "data4", "size": "20G",
+                "allowed": ["10.125.30.106", "10.125.30.108","10.125.30.109"]
+            },{
+                "name": "data5", "size": "20G",
+                "allowed": ["10.125.30.106", "10.125.30.108","10.125.30.109"]
+            },
+			{
+                "name": "data6", "size": "20G",
+                "allowed": ["10.125.30.106", "10.125.30.108","10.125.30.109"]
+            },
+			{
+                "name": "data7", "size": "20G",
+                "allowed": ["10.125.30.106", "10.125.30.108","10.125.30.109"]
+            },
+			{
+                "name": "data8", "size": "20G",
+                "allowed": ["10.125.30.106", "10.125.30.108","10.125.30.109"]
+            }
+
+        ]
+    },
+    "mount": [
+        {
+            "ip": "10.125.30.106", "port": 22,
+            "user": "root", "passwd": "cloudos",
+            "target": "10.125.30.109",
+            "mkfs": true
+        },
+        {
+            "ip": "10.125.30.108", "port": 22,
+            "user": "root", "passwd": "cloudos",
+            "target": "10.125.30.109",
+            "mkfs": false
+        },
+		{
+            "ip": "10.125.30.109", "port": 22,
+            "user": "root", "passwd": "cloudos",
+            "target": "10.125.30.109",
+            "mkfs": false
+        }
+
+    ]
+}
