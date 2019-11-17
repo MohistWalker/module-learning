@@ -1,0 +1,5 @@
+## 1.拉取鏡像
+  docker pull biarms/mysql:5.5
+## 2.運行
+  docker run --name mysql -d --restart unless-stopped -p 0.0.0.0:3306:3306 -e MYSQL_ROOT_PASSWOED=CLOUDOS BIARMS/MYSQL:5.5
+##  3.端口開放
