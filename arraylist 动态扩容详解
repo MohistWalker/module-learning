@@ -1,0 +1,23 @@
+1.ArrayList的初始化
+  new ArrayList(); -> capacity = 0
+  new ArrayList(num); -> if num>=0; capacity = num; else throws IllegalArgumentException;
+  new ArrayList(Collection<? extends E> c); -> if c.size != 0 ; capacity = c.size; else 0;
+2.ensureCapacityInternal(int minCapacity)方法
+    add(); minCapacity =  size + 1;
+    addAll(); minCapacity = size + a.size();
+    if size = 0; minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);
+3.ensureExplicitCapacity(int minCapacity)方法
+ if (minCapacity - elementData.length > 0) grow(minCapacity);
+4.grow(int minCapacity)方法
+        int oldCapacity = elementData.length;
+        int newCapacity = oldCapacity + (oldCapacity >> 1);
+        if (newCapacity - minCapacity < 0)
+            newCapacity = minCapacity;
+        if (newCapacity - MAX_ARRAY_SIZE > 0)
+            newCapacity = hugeCapacity(minCapacity);
+5.hugeCapacity方法
+  if (minCapacity < 0) // overflow
+            throw new OutOfMemoryError();
+        return (minCapacity > MAX_ARRAY_SIZE) ?
+            Integer.MAX_VALUE :
+            MAX_ARRAY_SIZE;
